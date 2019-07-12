@@ -1,6 +1,7 @@
 const axios = require("axios");
 
-let temp, humidity;
+let temp = 0,
+  humidity = 0;
 
 const refreshData = async () => {
   console.log("weather: refreshing data...");
@@ -18,6 +19,10 @@ const refreshData = async () => {
 refreshData();
 setInterval(refreshData, 10 * 60 * 1000);
 
-module.exports.getWeather = () => {
-  return `${temp}ºC ${humidity}%`;
+const renderFn = () => `
+  <h2 class="m-0">${temp.toFixed(1)}ºC ${humidity}%</h2>
+`;
+
+module.exports = {
+  render: renderFn
 };

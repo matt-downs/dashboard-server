@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-let ltc;
+let ltc = 0;
 
 const refreshData = async () => {
   console.log("crypto: refreshing data...");
@@ -21,6 +21,10 @@ const refreshData = async () => {
 refreshData();
 setInterval(refreshData, 30 * 60 * 1000);
 
-module.exports.getLtc = () => {
-  return `ltc=${ltc.toFixed(2)}`;
+const renderFn = () => `
+  <h2 class="m-0">ltc=${ltc.toFixed(2)}</h2>
+`;
+
+module.exports = {
+  render: renderFn
 };

@@ -1,0 +1,13 @@
+{
+  "modules": [
+    {
+      "name": "./modules/time"
+    },
+    {
+      "name": "./modules/weather"
+    },
+    {
+      "name": "./modules/crypto"
+    }
+  ]
+}
