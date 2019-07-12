@@ -8,10 +8,6 @@ const getTime = () => {
   return `${h}:${m}`;
 };
 
-const renderFn = () => `
+module.exports.render = () => `
   <h1 class="m-0">${getTime()}</h1>
 `;
-
-module.exports = {
-  render: renderFn
-};

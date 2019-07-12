@@ -1,17 +1,10 @@
 const fastify = require("fastify")({ logger: true });
 const config = require("./config.json");
-// const timeModule = require("./modules/time");
-
-const modules = [];
-
-config.modules.forEach(m => {
-  modules.push({ render: require(m.name).render });
-});
 
 function buildBody() {
   let body = "";
-  modules.forEach(m => {
-    body += m.render();
+  config.modules.forEach(m => {
+    body += require(m.name).render();
   });
   return body;
 }

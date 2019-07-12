@@ -19,10 +19,6 @@ const refreshData = async () => {
 refreshData();
 setInterval(refreshData, 10 * 60 * 1000);
 
-const renderFn = () => `
+module.exports.render = () => `
   <h2 class="m-0">${temp.toFixed(1)}ºC ${humidity}%</h2>
 `;
-
-module.exports = {
-  render: renderFn
-};
