@@ -37,7 +37,7 @@ fastify.get("/", (req, reply) => {
       <script>
         setInterval(function() {
           document.location.reload();
-        }, 500);
+        }, ${config.refreshInterval});
       </script>
     </body>
   </html>
@@ -47,7 +47,7 @@ fastify.get("/", (req, reply) => {
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(4000, "0.0.0.0");
+    await fastify.listen(config.port, "0.0.0.0");
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
     fastify.log.error(err);
