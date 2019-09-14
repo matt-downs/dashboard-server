@@ -1,5 +1,7 @@
 const fastify = require("fastify")({ logger: true });
 const config = require("./config.json");
+const crypto = require("crypto");
+const fs = require("fs");
 
 function buildBody() {
   let body = "";
@@ -9,39 +11,23 @@ function buildBody() {
   return body;
 }
 
-fastify.get("/", (req, reply) => {
-  reply.type("text/html").send(`
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <title>Kindle Dashboard</title>
-      <style>
-        body {
-          font-size: 4rem;
-          padding-left: 20px;
-        }
-        h1 {
-          font-size: 3em;
-        }
-        .m-0 {
-          margin: 0;
-        }
-      </style>
-    </head>
-    <body class="m-0">
-      ${buildBody()}
-      <script>
-        setInterval(function() {
-          document.location.reload();
-        }, ${config.refreshInterval});
-      </script>
-    </body>
-  </html>
-  `);
+fastify.get("/", function(req, reply) {
+  const stream = fs.createReadStream("./index.html", "utf8");
+  reply.type("text/html").send(stream);
+});
+
+fastify.get("/body", (req, reply) => {
+  const body = buildBody();
+  const hash = crypto
+    .createHash("sha1")
+    .update(body)
+    .digest("base64");
+
+  reply.send({
+    body,
+    hash,
+    refreshInterval: config.refreshInterval
+  });
 });
 
 // Run the server!
