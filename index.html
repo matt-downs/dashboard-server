@@ -65,17 +65,20 @@
 
       // Main
       function main() {
-        console.log(refreshInterval);
         setTimeout(function() {
-          getUpdates(function(data) {
-            tickIndicator();
-            refreshInterval = data.refreshInterval;
-            if (data.hash !== hash) {
-              hash = data.hash;
-              updateBody(data.body);
-            }
+          try {
+            getUpdates(function(data) {
+              tickIndicator();
+              refreshInterval = data.refreshInterval;
+              if (data.hash !== hash) {
+                hash = data.hash;
+                updateBody(data.body);
+              }
+              main();
+            });
+          } catch (error) {
             main();
-          });
+          }
         }, refreshInterval);
       }
       main();
