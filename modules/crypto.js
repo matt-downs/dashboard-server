@@ -22,5 +22,5 @@ refreshData();
 setInterval(refreshData, 30 * 60 * 1000);
 
 module.exports.render = () => `
-  <h2 class="m-0">ltc=${ltc.toFixed(2)}</h2>
+  <h2 class="m-0">ltc $${ltc.toFixed(2)}</h2>
 `;
