@@ -10,6 +10,7 @@
       body {
         font-size: 4rem;
         padding-left: 20px;
+        min-height: 100vh;
       }
       h1 {
         font-size: 3em;
@@ -27,9 +28,17 @@
       #indicator.tick {
         background-color: #000;
       }
+      /* Dark mode */
+      body.dark {
+        background-color: #000;
+        color: #fff;
+      }
+      body.dark #indicator.tick {
+        background-color: #fff;
+      }
     </style>
   </head>
-  <body class="m-0">
+  <body class="m-0 dark">
     <div id="indicator"></div>
     <div id="body">Loading...</div>
     <script>
@@ -70,6 +79,11 @@
         }, refreshInterval);
       }
       main();
+
+      // Dark mode
+      document.body.addEventListener("click", function() {
+        this.className = this.className === "dark" ? "" : "dark";
+      });
     </script>
   </body>
 </html>
