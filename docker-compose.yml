@@ -6,5 +6,6 @@ services:
     environment:
       WEATHER_KEY: ""
       CRYPTO_KEY: ""
+      TZ: Australia/Brisbane
     ports:
       - "3000:3000"
