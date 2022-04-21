@@ -1,7 +1,7 @@
-FROM node:18
+FROM node:17
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
-RUN adduser -S app
+RUN adduser --system app
 COPY . .
 RUN npm install
 RUN chown -R app /opt/app
