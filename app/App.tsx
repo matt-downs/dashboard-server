@@ -11,7 +11,14 @@ export const App = () => {
         <meta httpEquiv="refresh" content="5" />
       </head>
       <body style={{ margin: 0 }}>
-        <div style={{ width: 758, height: 1024, border: "1px solid black" }}>
+        <div
+          style={{
+            width: 1100,
+            height: 1315,
+            boxSizing: "border-box",
+            border: "10px solid black",
+          }}
+        >
           <Time />
           <hr />
           <Weather />
