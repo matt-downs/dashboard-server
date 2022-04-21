@@ -1,22 +1,28 @@
 import React from "react";
 import { Crypto } from "./Crypto";
+import { RandomDog } from "./RandomDog";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
 
+const baseStyles = {
+  margin: 0,
+};
+
 export const App = () => {
   return (
-    <html>
+    <html style={baseStyles}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="refresh" content="5" />
       </head>
-      <body style={{ margin: 0 }}>
+      <body style={baseStyles}>
         <div
           style={{
-            width: 1100,
-            height: 1315,
+            width: 1072,
+            height: 1230,
+            overflow: "hidden",
+            border: "5px solid black",
             boxSizing: "border-box",
-            border: "10px solid black",
           }}
         >
           <Time />
@@ -24,6 +30,7 @@ export const App = () => {
           <Weather />
           <hr />
           <Crypto />
+          <RandomDog />
         </div>
       </body>
     </html>

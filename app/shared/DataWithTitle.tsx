@@ -4,7 +4,7 @@ export const DataWithTitle = ({
   children,
   title,
 }: {
-  children: React.ReactChild[];
+  children: React.ReactChild[] | React.ReactChild;
   title: string;
 }) => {
   return (
