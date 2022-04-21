@@ -7,20 +7,24 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Kindle Dashboard</title>
     <style>
+      html,
+      body {
+        height: 100%;
+      }
       body {
         font-size: 4rem;
         padding-left: 20px;
-        min-height: 100vh;
+        margin: 0;
       }
       h1 {
-        font-size: 3em;
+        font-size: 3.8em;
       }
       .m-0 {
         margin: 0;
       }
       #indicator {
         position: absolute;
-        top: 0;
+        bottom: 0;
         right: 0;
         width: 100px;
         height: 100px;
@@ -38,7 +42,7 @@
       }
     </style>
   </head>
-  <body class="m-0 dark">
+  <body class="dark">
     <div id="indicator"></div>
     <div id="body">Loading...</div>
     <script>
