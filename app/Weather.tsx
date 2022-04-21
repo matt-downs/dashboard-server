@@ -30,7 +30,8 @@ export const Weather = () => {
   return (
     <div>
       <h1>
-        {data?.temp.toFixed(1)}ºC {data?.humidity}%
+        Brisbane
+        {data?.temp.toFixed(1)}&deg;C {data?.humidity}%
       </h1>
       ==================================
     </div>

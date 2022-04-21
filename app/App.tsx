@@ -5,10 +5,15 @@ import { Weather } from "./Weather";
 
 export const App = () => {
   return (
-    <>
-      <Time />
-      <Weather />
-      <Crypto />
-    </>
+    <html>
+      <head>
+        <meta httpEquiv="refresh" content="5" />
+      </head>
+      <body>
+        <Time />
+        <Weather />
+        <Crypto />
+      </body>
+    </html>
   );
 };
