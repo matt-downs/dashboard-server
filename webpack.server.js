@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const Dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
 
 module.exports = {
   entry: "./server/index.tsx",
@@ -21,5 +22,11 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      WEATHER_KEY: "",
+      CRYPTO_KEY: "",
+    }),
+    new Dotenv(),
+  ],
 };
