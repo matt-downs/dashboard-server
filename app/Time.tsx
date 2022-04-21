@@ -13,8 +13,7 @@ const getTime = () => {
 export const Time = () => {
   return (
     <div>
-      <h1>{getTime()}</h1>
-      ==================================
+      <h1 style={{ fontSize: 64 }}>{getTime()}</h1>
     </div>
   );
 };

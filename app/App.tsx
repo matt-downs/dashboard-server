@@ -7,12 +7,17 @@ export const App = () => {
   return (
     <html>
       <head>
+        <meta charSet="utf-8" />
         <meta httpEquiv="refresh" content="5" />
       </head>
-      <body>
-        <Time />
-        <Weather />
-        <Crypto />
+      <body style={{ margin: 0 }}>
+        <div style={{ width: 758, height: 1024, border: "1px solid black" }}>
+          <Time />
+          <hr />
+          <Weather />
+          <hr />
+          <Crypto />
+        </div>
       </body>
     </html>
   );

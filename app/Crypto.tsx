@@ -1,6 +1,7 @@
 import React from "react";
 import { useSSE } from "use-sse";
 import axios from "axios";
+import { DataWithTitle } from "./shared/DataWithTitle";
 
 const getData = async (): Promise<number> => {
   const { data } = await axios.get(
@@ -18,10 +19,5 @@ const getData = async (): Promise<number> => {
 export const Crypto = () => {
   const [data] = useSSE<number>(getData);
 
-  return (
-    <div>
-      <h1>LTC AUD ${data?.toFixed(2)}</h1>
-      ==================================
-    </div>
-  );
+  return <DataWithTitle title="LTC AUD">${data?.toFixed(2)}</DataWithTitle>;
 };

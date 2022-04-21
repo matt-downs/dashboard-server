@@ -1,6 +1,7 @@
 import React from "react";
 import { useSSE } from "use-sse";
 import axios from "axios";
+import { DataWithTitle } from "./shared/DataWithTitle";
 
 type WeatherData = {
   temp: number;
@@ -28,12 +29,8 @@ export const Weather = () => {
   const [data] = useSSE<WeatherData>(getData);
 
   return (
-    <div>
-      <h1>
-        Brisbane
-        {data?.temp.toFixed(1)}&deg;C {data?.humidity}%
-      </h1>
-      ==================================
-    </div>
+    <DataWithTitle title="Brisbane">
+      {data?.temp.toFixed(1)}&deg;C {data?.humidity}%
+    </DataWithTitle>
   );
 };
