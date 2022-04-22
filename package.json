@@ -2,11 +2,13 @@
   "name": "dashboard-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server-build/index.js",
   "scripts": {
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
     "dev": "npm-run-all --parallel dev:*",
+    "build-prod": "NODE_ENV=production webpack --config webpack.server.js --mode=production",
+    "prod": "node ./server-build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
