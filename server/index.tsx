@@ -20,10 +20,10 @@ fastify.get("/", async function (req, reply) {
   );
 
   // Wait for all effects to finish
-  const data = await resolveData();
+  await resolveData();
 
   // Render App for the second time
-  // This time data form effects will be avaliable in components
+  // This time data form effects will be available in components
   const htmlStream = ReactDOMServer.renderToStaticNodeStream(
     <ServerDataContext>
       <App />
