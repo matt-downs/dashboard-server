@@ -1,6 +1,7 @@
 import React from "react";
 import { Crypto } from "./Crypto";
 import { RandomDog } from "./RandomDog";
+import { Block } from "./shared/Block";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
 
@@ -13,7 +14,7 @@ export const App = () => {
     <html style={baseStyles}>
       <head>
         <meta charSet="utf-8" />
-        <meta httpEquiv="refresh" content="5" />
+        {/* <meta httpEquiv="refresh" content="5" /> */}
       </head>
       <body style={baseStyles}>
         <div
@@ -23,13 +24,13 @@ export const App = () => {
             overflow: "hidden",
             border: "5px solid black",
             boxSizing: "border-box",
+            padding: 10,
           }}
         >
           <Time />
-          <hr />
-          <Weather />
-          <hr />
-          <Crypto />
+          <Block right={<Crypto />}>
+            <Weather />
+          </Block>
           <RandomDog />
         </div>
       </body>

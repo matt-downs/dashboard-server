@@ -8,9 +8,9 @@ export const DataWithTitle = ({
   title: string;
 }) => {
   return (
-    <div>
-      <h2 style={{ marginBottom: 0 }}>{title}</h2>
-      <h1 style={{ marginTop: 0, fontSize: 64 }}>{children}</h1>
+    <div style={{ paddingBottom: 20 }}>
+      <h2 style={{ margin: 0 }}>{title}</h2>
+      <h1 style={{ margin: 0, fontSize: 64 }}>{children}</h1>
     </div>
   );
 };
