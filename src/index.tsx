@@ -3,6 +3,7 @@ import * as ReactDOMServer from "react-dom/server";
 import { App } from "./components/App";
 import Fastify from "fastify";
 import { createServerContext } from "use-sse";
+import indexHtml from "./index.html";
 
 const fastify = Fastify({
   logger: true,
@@ -10,7 +11,11 @@ const fastify = Fastify({
 
 const { ServerDataContext, resolveData } = createServerContext();
 
-fastify.get("/", async function (req, reply) {
+fastify.get("/", function (req, reply) {
+  reply.type("text/html").send(indexHtml);
+});
+
+fastify.get("/render", async function (req, reply) {
   // We need to render app twice.
   // First - render App to register all effects
   ReactDOMServer.renderToStaticMarkup(
@@ -24,13 +29,13 @@ fastify.get("/", async function (req, reply) {
 
   // Render App for the second time
   // This time data form effects will be available in components
-  const htmlStream = ReactDOMServer.renderToStaticNodeStream(
+  const body = ReactDOMServer.renderToStaticMarkup(
     <ServerDataContext>
       <App />
     </ServerDataContext>
   );
 
-  reply.type("text/html").send(htmlStream);
+  reply.send({ body });
 });
 
 // Run the server!

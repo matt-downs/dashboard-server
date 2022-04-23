@@ -21,6 +21,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: "babel-loader",
       },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
     ],
   },
   plugins: [new webpack.EnvironmentPlugin(["WEATHER_KEY", "CRYPTO_KEY"])],

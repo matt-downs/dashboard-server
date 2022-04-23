@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Kindle Dashboard</title>
+    <style>
+      .m-0 {
+        margin: 0;
+      }
+      #indicator {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+      }
+      #indicator.tick {
+        background-color: #000;
+      }
+    </style>
+  </head>
+  <body class="m-0">
+    <div id="indicator"></div>
+    <div id="body">Loading...</div>
+    <script>
+      // Globals
+      var refreshInterval = 5000;
+
+      // Functions
+      function getUpdates(successCb, errorCb) {
+        const http = new XMLHttpRequest();
+        http.open("GET", "/render");
+        http.onload = function () {
+          successCb(JSON.parse(http.responseText));
+        };
+        http.onerror = errorCb;
+        http.send();
+      }
+      function updateBody(data) {
+        document.getElementById("body").innerHTML = data;
+      }
+      function tickIndicator() {
+        var el = document.getElementById("indicator");
+        el.className = el.className === "tick" ? "" : "tick";
+      }
+
+      // Main
+      function main() {
+        console.log(refreshInterval);
+        setTimeout(function () {
+          getUpdates(
+            function (data) {
+              tickIndicator();
+              updateBody(data.body);
+              main();
+            },
+            function () {
+              main();
+            }
+          );
+        }, refreshInterval);
+      }
+      main();
+    </script>
+  </body>
+</html>
