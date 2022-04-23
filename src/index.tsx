@@ -1,6 +1,6 @@
 import React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import { App } from "../app/App";
+import { App } from "./components/App";
 import Fastify from "fastify";
 import { createServerContext } from "use-sse";
 

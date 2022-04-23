@@ -5,14 +5,14 @@ const webpack = require("webpack");
 require("dotenv").config({ override: true });
 
 module.exports = {
-  entry: "./server/index.tsx",
+  entry: "./src/index.tsx",
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
   target: "node",
   externals: [nodeExternals()],
   output: {
-    path: path.resolve("server-build"),
+    path: path.resolve("dist"),
     filename: "index.js",
   },
   module: {
