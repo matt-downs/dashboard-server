@@ -2,6 +2,7 @@ import React from "react";
 import { useSSE } from "use-sse";
 import axios from "axios";
 import { DataWithTitle } from "./shared/DataWithTitle";
+import { effectRegenerator, FIFTEEN_MINUTES } from "../helpers";
 
 type WeatherData = {
   temp: number;
@@ -26,7 +27,9 @@ const getData = async () => {
 };
 
 export const Weather = () => {
-  const [data] = useSSE<WeatherData>(getData);
+  const [data] = useSSE<WeatherData>(getData, [
+    effectRegenerator(FIFTEEN_MINUTES),
+  ]);
 
   return (
     <DataWithTitle title="Brisbane">
