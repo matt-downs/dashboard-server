@@ -46,22 +46,22 @@
         var el = document.getElementById("indicator");
         el.className = el.className === "tick" ? "" : "tick";
       }
+      function callMainAfterTimeout() {
+        setTimeout(main, refreshInterval);
+      }
 
       // Main
       function main() {
-        console.log(refreshInterval);
-        setTimeout(function () {
-          getUpdates(
-            function (data) {
-              tickIndicator();
-              updateBody(data.body);
-              main();
-            },
-            function () {
-              main();
-            }
-          );
-        }, refreshInterval);
+        getUpdates(
+          function (data) {
+            tickIndicator();
+            updateBody(data.body);
+            callMainAfterTimeout();
+          },
+          function () {
+            callMainAfterTimeout();
+          }
+        );
       }
       main();
     </script>

@@ -5,10 +5,6 @@ import { Block } from "./shared/Block";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
 
-const baseStyles = {
-  margin: 0,
-};
-
 export const App = () => {
   return (
     <div
