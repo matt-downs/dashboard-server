@@ -1,20 +1,14 @@
 import React from "react";
-import { useSSE } from "use-sse";
-import axios from "axios";
 import { DataWithTitle } from "./shared/DataWithTitle";
-import { effectRegenerator, ONE_DAY } from "../helpers";
-
-const getDog = async (): Promise<string> => {
-  const { data } = await axios.get("https://dog.ceo/api/breeds/image/random");
-  return data.message;
-};
+import { useExternalDataContext } from "../context/externalDataContext";
 
 export const RandomDog = () => {
-  const [data] = useSSE<string>(getDog, [effectRegenerator(ONE_DAY)]);
+  const data = useExternalDataContext();
+  if (!data) return <span>error</span>;
 
   return (
     <DataWithTitle title="Dog of the day">
-      <img src={data} style={{ maxWidth: "100%" }} />
+      <img src={data.dog} style={{ maxWidth: "100%" }} />
     </DataWithTitle>
   );
 };

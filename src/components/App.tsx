@@ -9,6 +9,7 @@ export const App = () => {
   return (
     <div
       style={{
+        // This is the viewport of the Kindle Paperwhite
         width: 1072,
         height: 1230,
         overflow: "hidden",
