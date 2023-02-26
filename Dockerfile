@@ -1,12 +1,10 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
-COPY package.json package-lock.json /app
-RUN npm install
-
 COPY . /app
+RUN npm install
 
 RUN npm run build-prod
 
