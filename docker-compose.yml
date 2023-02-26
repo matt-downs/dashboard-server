@@ -5,6 +5,8 @@ services:
       context: .
     environment:
       TZ: Australia/Brisbane
+      WEATHER_KEY:
+      CRYPTO_KEY:
     ports:
       - "3000:3000"
     restart: always
