@@ -1,23 +1,41 @@
 import React from "react";
-import { DataWithTitle } from "./shared/DataWithTitle";
 import { useExternalDataContext } from "../context/externalDataContext";
 
 export const PuppiesFed = () => {
   const data = useExternalDataContext();
   if (!data) return <span>error</span>;
 
+  const { text, nextState, backgroundColor, color } =
+    data.homeAssistant.state === "on"
+      ? {
+          text: "Pups fed",
+          backgroundColor: "white",
+          color: "black",
+          nextState: "off",
+        }
+      : {
+          text: "Pups hungry!",
+          backgroundColor: "black",
+          color: "white",
+          nextState: "on",
+        };
+
   return (
-    <DataWithTitle title="Puppies fed">
-      {data.homeAssistant.state}
-      <form method="post" action="/event">
-        <input hidden name="type" defaultValue="puppies_fed" />
-        <input
-          hidden
-          name="state"
-          defaultValue={data.homeAssistant.state === "on" ? "off" : "on"}
-        />
-        <button type="submit">submit</button>
-      </form>
-    </DataWithTitle>
+    <form method="post" action="/event">
+      <input hidden name="type" defaultValue="puppies_fed" />
+      <input hidden name="state" defaultValue={nextState} />
+      <button
+        type="submit"
+        style={{
+          fontSize: 64,
+          fontWeight: "bold",
+          marginTop: 30,
+          backgroundColor,
+          color,
+        }}
+      >
+        {text}
+      </button>
+    </form>
   );
 };
