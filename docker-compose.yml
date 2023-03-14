@@ -6,7 +6,8 @@ services:
     environment:
       TZ: Australia/Brisbane
       WEATHER_KEY:
-      CRYPTO_KEY:
+      HOME_ASSISTANT_HOST:
+      HOME_ASSISTANT_KEY:
     ports:
       - "3000:3000"
     restart: unless-stopped

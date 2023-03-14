@@ -32,7 +32,7 @@
       // Functions
       function getUpdates(successCb, errorCb) {
         const http = new XMLHttpRequest();
-        http.open("GET", "/render");
+        http.open("GET", "/getBody");
         http.onload = function () {
           successCb(JSON.parse(http.responseText));
         };

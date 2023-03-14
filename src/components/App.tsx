@@ -1,5 +1,5 @@
 import React from "react";
-import { Crypto } from "./Crypto";
+import { PuppiesFed } from "./PuppiesFed";
 import { RandomDog } from "./RandomDog";
 import { Block } from "./shared/Block";
 import { Time } from "./Time";
@@ -18,8 +18,8 @@ export const App = () => {
         padding: 10,
       }}
     >
-      <Time />
-      <Block right={<Crypto />}>
+      <Block right={<PuppiesFed />}>
+        <Time />
         <Weather />
       </Block>
       <RandomDog />

@@ -1,22 +1,35 @@
 import axios from "axios";
 import React from "react";
 import memoize from "memoizee";
-import { effectRegenerator, FIFTEEN_MINUTES, ONE_DAY } from "../helpers";
+import {
+  effectRegenerator,
+  FIFTEEN_MINUTES,
+  ONE_DAY,
+  FIVE_SECONDS,
+} from "../helpers";
 
-const getCrypto = memoize(
-  async (_cacheKey: number): Promise<number> => {
-    console.log("Fetching crypto data...");
+type HomeAssistantData = {
+  state: "on" | "off";
+  attributes: Record<string, string>;
+};
+
+export const getHomeAssistantData = memoize(
+  async (_cacheKey: number): Promise<HomeAssistantData> => {
+    console.log("Fetching Home Assistant data...");
 
     const { data } = await axios.get(
-      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=LTC&convert=AUD",
+      `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_boolean.puppies_fed`,
       {
         headers: {
-          "X-CMC_PRO_API_KEY": process.env.CRYPTO_KEY ?? "",
+          Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
         },
       }
     );
 
-    return data.data["LTC"].quote.AUD.price;
+    return {
+      state: data.state,
+      attributes: data.attributes,
+    };
   },
   { primitive: true, promise: true }
 );
@@ -60,7 +73,7 @@ const getWeather = memoize(
 );
 
 type ExternalDataContext = {
-  crypto: number;
+  homeAssistant: HomeAssistantData;
   dog: string;
   weather: WeatherData;
 };
@@ -69,16 +82,18 @@ const context = React.createContext<ExternalDataContext | null>(null);
 
 export const useExternalDataContext = () => React.useContext(context);
 
-export async function buildExternalDataContext() {
-  const [crypto, dog, weather] = await Promise.all([
-    getCrypto(effectRegenerator(FIFTEEN_MINUTES)),
+export const getExternalData = async () => {
+  const [homeAssistant, dog, weather] = await Promise.all([
+    getHomeAssistantData(effectRegenerator(FIVE_SECONDS)),
     getDog(effectRegenerator(ONE_DAY)),
     getWeather(effectRegenerator(FIFTEEN_MINUTES)),
   ]);
+  return { homeAssistant, dog, weather };
+};
+export async function buildExternalDataContext() {
+  const externalData = await getExternalData();
 
   return ({ children }: { children: React.ReactChild }) => (
-    <context.Provider value={{ crypto, dog, weather }}>
-      {children}
-    </context.Provider>
+    <context.Provider value={externalData}>{children}</context.Provider>
   );
 }
