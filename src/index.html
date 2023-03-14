@@ -7,24 +7,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Kindle Dashboard</title>
     <style>
-      .m-0 {
+      body {
         margin: 0;
       }
-      #indicator {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 50px;
-        height: 50px;
-      }
-      #indicator.tick {
-        background-color: #000;
+      .tick .clock-separator {
+        opacity: 0;
       }
     </style>
   </head>
-  <body class="m-0">
-    <div id="indicator"></div>
-    <div id="body">Loading...</div>
+  <body>
+    <div id="innerBody">Loading...</div>
     <script>
       // Globals
       var refreshInterval = 5000;
@@ -39,12 +31,13 @@
         http.onerror = errorCb;
         http.send();
       }
-      function updateBody(data) {
-        document.getElementById("body").innerHTML = data;
+      function updateInnerBody(data) {
+        document.getElementById("innerBody").innerHTML = data;
       }
-      function tickIndicator() {
-        var el = document.getElementById("indicator");
-        el.className = el.className === "tick" ? "" : "tick";
+      function tickTock() {
+        document.body.classList.contains("tick")
+          ? document.body.classList.remove("tick")
+          : document.body.classList.add("tick");
       }
       function callMainAfterTimeout() {
         setTimeout(main, refreshInterval);
@@ -54,8 +47,8 @@
       function main() {
         getUpdates(
           function (data) {
-            tickIndicator();
-            updateBody(data.body);
+            tickTock();
+            updateInnerBody(data.body);
             callMainAfterTimeout();
           },
           function () {

@@ -28,7 +28,7 @@ fastify.register(fastifyFormbody);
 
 fastify.get("/", async function (req, reply) {
   const dom = new JSDOM(indexHtml);
-  dom.window.document.getElementById("body")!.innerHTML = await getBody();
+  dom.window.document.getElementById("innerBody")!.innerHTML = await getBody();
 
   reply.type("text/html").send(dom.serialize());
 });
