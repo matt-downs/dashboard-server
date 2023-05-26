@@ -30,6 +30,7 @@ export const PuppiesFed = () => {
           fontSize: 64,
           fontWeight: "bold",
           marginTop: 30,
+          padding: 0,
           backgroundColor,
           color,
         }}

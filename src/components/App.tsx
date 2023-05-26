@@ -9,13 +9,15 @@ export const App = () => {
   return (
     <div
       style={{
-        // This is the viewport of the Kindle Paperwhite
-        width: 1072,
-        height: 1230,
+        // // This is the viewport of the Kindle Paperwhite
+        // width: 1072,
+        // height: 1230,
+        // This is the viewport of the iPad mini 2
+        width: 768,
+        height: 1004,
+        // Prevent scrolling
         overflow: "hidden",
-        border: "5px solid black",
-        boxSizing: "border-box",
-        padding: 10,
+        position: "fixed",
       }}
     >
       <Block right={<PuppiesFed />}>
