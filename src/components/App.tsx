@@ -8,31 +8,41 @@ import { Message } from "./Message";
 
 export const App = () => {
   return (
-    <div
-      style={{
-        // // This is the viewport of the Kindle Paperwhite
-        // width: 1072,
-        // height: 1230,
-        // This is the viewport of the iPad mini 2
-        width: 768,
-        height: 1004,
-        // Prevent scrolling
-        overflow: "hidden",
-        position: "fixed",
-      }}
-    >
-      <Block
-        right={
-          <>
-            <PuppiesFed />
-            <Message />
-          </>
-        }
+    <>
+      <div
+        style={{
+          // // This is the viewport of the Kindle Paperwhite
+          // width: 1072,
+          // height: 1230,
+          // This is the viewport of the iPad mini 2
+          width: 768,
+          height: 1004,
+          // Prevent scrolling
+          overflow: "hidden",
+          position: "fixed",
+        }}
       >
-        <Time />
-        <Weather />
-      </Block>
-      <RandomDog />
-    </div>
+        <Block
+          right={
+            <>
+              <PuppiesFed />
+              <Message />
+            </>
+          }
+        >
+          <Time />
+          <Weather />
+        </Block>
+        <RandomDog />
+      </div>
+      <img
+        src="/qr.png"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          right: 0,
+        }}
+      />
+    </>
   );
 };

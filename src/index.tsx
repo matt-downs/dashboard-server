@@ -44,7 +44,7 @@ fastify.get("/getBody", async function (req, reply) {
 });
 
 fastify.get("/qr.png", async function (req, reply) {
-  const buffer = await QRCode.toBuffer("http://0.0.0.0:3000/");
+  const buffer = await QRCode.toBuffer(process.env.SERVER_ADDRESS ?? "");
   reply.type("image/png").send(buffer);
 });
 
