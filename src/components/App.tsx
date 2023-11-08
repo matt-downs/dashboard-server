@@ -4,6 +4,7 @@ import { RandomDog } from "./RandomDog";
 import { Block } from "./shared/Block";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
+import { Message } from "./Message";
 
 export const App = () => {
   return (
@@ -20,7 +21,14 @@ export const App = () => {
         position: "fixed",
       }}
     >
-      <Block right={<PuppiesFed />}>
+      <Block
+        right={
+          <>
+            <PuppiesFed />
+            <Message />
+          </>
+        }
+      >
         <Time />
         <Weather />
       </Block>

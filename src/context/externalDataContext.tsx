@@ -9,26 +9,41 @@ import {
 } from "../helpers";
 
 type HomeAssistantData = {
-  state: "on" | "off";
-  attributes: Record<string, string>;
+  puppiesFed: {
+    state: "on" | "off";
+    attributes: Record<string, string>;
+  };
+  fridgeText: {
+    state: string;
+  };
 };
 
 export const getHomeAssistantData = memoize(
   async (_cacheKey: number): Promise<HomeAssistantData> => {
     console.log("Fetching Home Assistant data...");
 
-    const { data } = await axios.get(
-      `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_boolean.puppies_fed`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
-        },
-      }
-    );
+    const [{ data: puppiesFedData }, { data: fridgeTextData }] =
+      await Promise.all(
+        [
+          `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_boolean.puppies_fed`,
+          `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_text.fridge_text`,
+        ].map((url) =>
+          axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
+            },
+          })
+        )
+      );
 
     return {
-      state: data.state,
-      attributes: data.attributes,
+      puppiesFed: {
+        state: puppiesFedData.state,
+        attributes: puppiesFedData.attributes,
+      },
+      fridgeText: {
+        state: fridgeTextData.state,
+      },
     };
   },
   { primitive: true, promise: true }
