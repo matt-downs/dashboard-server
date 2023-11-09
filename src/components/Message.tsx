@@ -7,8 +7,6 @@ export const Message = () => {
   if (!data) return <span>error</span>;
 
   return (
-    <DataWithTitle title="Message">
-      {data.homeAssistant.fridgeText.state}
-    </DataWithTitle>
+    <DataWithTitle title="Message">{data.homeAssistant.message}</DataWithTitle>
   );
 };

@@ -10,12 +10,8 @@ import {
 import { getMessage, getPuppiesFed } from "../services/homeassistant";
 
 type HomeAssistantData = {
-  puppiesFed: {
-    state: "on" | "off";
-  };
-  fridgeText: {
-    state: string;
-  };
+  puppiesFed: "on" | "off";
+  message: string;
 };
 
 export const getHomeAssistantData = memoize(
@@ -28,12 +24,8 @@ export const getHomeAssistantData = memoize(
     ]);
 
     return {
-      puppiesFed: {
-        state: puppiesFed,
-      },
-      fridgeText: {
-        state: message,
-      },
+      puppiesFed: puppiesFed.state,
+      message: message.state,
     };
   },
   { primitive: true, promise: true }

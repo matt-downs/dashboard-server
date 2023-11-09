@@ -1,5 +1,4 @@
 import React from "react";
-import { DataWithTitle } from "./shared/DataWithTitle";
 import { useExternalDataContext } from "../context/externalDataContext";
 
 export const RandomDog = () => {
