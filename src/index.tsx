@@ -11,8 +11,12 @@ import {
 } from "./context/externalDataContext";
 import { JSDOM } from "jsdom";
 import { fastifyFormbody } from "@fastify/formbody";
-import axios from "axios";
 import QRCode from "qrcode";
+import {
+  getMessage,
+  setMessage,
+  setPuppiesFed,
+} from "./services/homeassistant";
 
 async function getBody() {
   const ExternalDataContextProvider = await buildExternalDataContext();
@@ -49,56 +53,23 @@ fastify.get("/qr.png", async function (req, reply) {
 });
 
 fastify.get("/", async function (req, reply) {
-  const { data: fridgeTextData } = await axios.get(
-    `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_text.fridge_text`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
-      },
-    }
-  );
-
   const dom = new JSDOM(indexHtml);
   dom.window.document
     .getElementById("messageInput")
-    ?.setAttribute("value", fridgeTextData.state);
+    ?.setAttribute("value", (await getMessage()).state);
 
   reply.type("text/html").send(dom.serialize());
 });
 
 fastify.post("/event", async function (req, reply) {
   if ((req.body as any)["type"] === "puppies_fed") {
-    const { homeAssistant } = await getExternalData();
-    await axios.post(
-      `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_boolean.puppies_fed`,
-      {
-        ...homeAssistant.puppiesFed,
-        state: (req.body as any).state,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
-        },
-      }
-    );
+    await setPuppiesFed((req.body as any).state);
     getHomeAssistantData.clear();
     return reply.redirect("/dashboard");
   }
 
   if ((req.body as any)["type"] === "message") {
-    const { homeAssistant } = await getExternalData();
-    await axios.post(
-      `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_text.fridge_text`,
-      {
-        ...homeAssistant.puppiesFed,
-        state: (req.body as any).state,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
-        },
-      }
-    );
+    await setMessage((req.body as any).state);
     getHomeAssistantData.clear();
     return reply.redirect("/");
   }

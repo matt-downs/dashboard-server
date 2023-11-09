@@ -7,11 +7,11 @@ import {
   ONE_DAY,
   FIVE_SECONDS,
 } from "../helpers";
+import { getMessage, getPuppiesFed } from "../services/homeassistant";
 
 type HomeAssistantData = {
   puppiesFed: {
     state: "on" | "off";
-    attributes: Record<string, string>;
   };
   fridgeText: {
     state: string;
@@ -22,27 +22,17 @@ export const getHomeAssistantData = memoize(
   async (_cacheKey: number): Promise<HomeAssistantData> => {
     console.log("Fetching Home Assistant data...");
 
-    const [{ data: puppiesFedData }, { data: fridgeTextData }] =
-      await Promise.all(
-        [
-          `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_boolean.puppies_fed`,
-          `http://${process.env.HOME_ASSISTANT_HOST}/api/states/input_text.fridge_text`,
-        ].map((url) =>
-          axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${process.env.HOME_ASSISTANT_KEY}`,
-            },
-          })
-        )
-      );
+    const [message, puppiesFed] = await Promise.all([
+      getMessage(),
+      getPuppiesFed(),
+    ]);
 
     return {
       puppiesFed: {
-        state: puppiesFedData.state,
-        attributes: puppiesFedData.attributes,
+        state: puppiesFed,
       },
       fridgeText: {
-        state: fridgeTextData.state,
+        state: message,
       },
     };
   },
