@@ -7,7 +7,7 @@ import {
   ONE_DAY,
   FIVE_SECONDS,
 } from "../helpers";
-import { getMessage, getPuppiesFed } from "../services/homeassistant";
+import { getMessage, getPuppiesFed } from "../services/homeAssistant";
 
 type HomeAssistantData = {
   puppiesFed: "on" | "off";

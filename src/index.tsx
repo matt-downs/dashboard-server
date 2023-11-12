@@ -16,7 +16,7 @@ import {
   getMessage,
   setMessage,
   setPuppiesFed,
-} from "./services/homeassistant";
+} from "./services/homeAssistant";
 
 async function getBody() {
   const ExternalDataContextProvider = await buildExternalDataContext();
@@ -54,9 +54,8 @@ fastify.get("/qr.png", async function (req, reply) {
 
 fastify.get("/", async function (req, reply) {
   const dom = new JSDOM(indexHtml);
-  dom.window.document
-    .getElementById("messageInput")
-    ?.setAttribute("value", (await getMessage()).state);
+  const input = dom.window.document.getElementById("messageInput");
+  if (input) input.innerHTML = (await getMessage()).state;
 
   reply.type("text/html").send(dom.serialize());
 });
