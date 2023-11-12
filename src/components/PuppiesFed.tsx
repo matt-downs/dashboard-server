@@ -6,7 +6,7 @@ export const PuppiesFed = () => {
   if (!data) return <span>error</span>;
 
   const { text, nextState, backgroundColor, color } =
-    data.homeAssistant.state === "on"
+    data.homeAssistant.puppiesFed === "on"
       ? {
           text: "Pups fed",
           backgroundColor: "white",

@@ -4,27 +4,39 @@ import { RandomDog } from "./RandomDog";
 import { Block } from "./shared/Block";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
+import { Message } from "./Message";
 
 export const App = () => {
   return (
-    <div
-      style={{
-        // // This is the viewport of the Kindle Paperwhite
-        // width: 1072,
-        // height: 1230,
-        // This is the viewport of the iPad mini 2
-        width: 768,
-        height: 1004,
-        // Prevent scrolling
-        overflow: "hidden",
-        position: "fixed",
-      }}
-    >
-      <Block right={<PuppiesFed />}>
-        <Time />
-        <Weather />
-      </Block>
-      <RandomDog />
-    </div>
+    <>
+      <div
+        style={{
+          // // This is the viewport of the Kindle Paperwhite
+          // width: 1072,
+          // height: 1230,
+          // This is the viewport of the iPad mini 2
+          width: 768,
+          height: 1004,
+          // Prevent scrolling
+          overflow: "hidden",
+          position: "fixed",
+        }}
+      >
+        <Block right={<PuppiesFed />}>
+          <Time />
+          <Weather />
+        </Block>
+        <Message />
+        <RandomDog />
+      </div>
+      <img
+        src="/qr.png"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          right: 0,
+        }}
+      />
+    </>
   );
 };

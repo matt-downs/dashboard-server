@@ -8,55 +8,22 @@
     <title>Kindle Dashboard</title>
     <style>
       body {
-        margin: 0;
+        margin: 20px;
       }
-      .tick .clock-separator {
-        opacity: 0;
+      #messageInput {
+        width: 100%;
+        height: 200px;
+        font-size: 32px;
+        resize: none;
       }
     </style>
   </head>
   <body>
-    <div id="innerBody">Loading...</div>
-    <script>
-      // Globals
-      var refreshInterval = 5000;
-
-      // Functions
-      function getUpdates(successCb, errorCb) {
-        const http = new XMLHttpRequest();
-        http.open("GET", "/getBody");
-        http.onload = function () {
-          successCb(JSON.parse(http.responseText));
-        };
-        http.onerror = errorCb;
-        http.send();
-      }
-      function updateInnerBody(data) {
-        document.getElementById("innerBody").innerHTML = data;
-      }
-      function tickTock() {
-        document.body.classList.contains("tick")
-          ? document.body.classList.remove("tick")
-          : document.body.classList.add("tick");
-      }
-      function callMainAfterTimeout() {
-        setTimeout(main, refreshInterval);
-      }
-
-      // Main
-      function main() {
-        getUpdates(
-          function (data) {
-            tickTock();
-            updateInnerBody(data.body);
-            callMainAfterTimeout();
-          },
-          function () {
-            callMainAfterTimeout();
-          }
-        );
-      }
-      main();
-    </script>
+    <form method="post" action="/event">
+      <input hidden name="type" value="message" />
+      <textarea autofocus name="state" id="messageInput"></textarea>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
   </body>
 </html>
