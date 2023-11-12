@@ -22,17 +22,11 @@ export const App = () => {
           position: "fixed",
         }}
       >
-        <Block
-          right={
-            <>
-              <PuppiesFed />
-              <Message />
-            </>
-          }
-        >
+        <Block right={<PuppiesFed />}>
           <Time />
           <Weather />
         </Block>
+        <Message />
         <RandomDog />
       </div>
       <img
